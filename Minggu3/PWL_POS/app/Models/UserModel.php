@@ -9,6 +9,6 @@ class UserModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_user';
-    protected $primarykey = 'user_id';
+    protected $table = 'm_user'; //Mendefinisikan nama tabel yang digunakan model 
+    protected $primarykey = 'id_user'; //Mendefinisikan primary key dari tabel yang digunakan
 }
