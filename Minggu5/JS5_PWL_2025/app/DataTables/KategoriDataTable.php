@@ -24,6 +24,7 @@
          return (new EloquentDataTable($query)) 
          ->addColumn('action', function ($row) {
             $editUrl = url('/kategori/edit', $row->kategori_id);
+            $deleteUrl = url('/kategori/delete', $row->kategori_id);
             $csrfToken = csrf_token();
  
             return '
@@ -31,8 +32,13 @@
                 <a href="' . $editUrl . '" class="btn btn-warning btn-sm d-flex align-items-center px-3">
                     Edit
                 </a>
+                    <form action="' . $deleteUrl . '" method="POST" style="margin:0;">
                     <input type="hidden" name="_method" value="POST">
                     <input type="hidden" name="_token" value="' . $csrfToken . '">
+                    <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center px-3"
+                        onclick="return confirm(\'Yakin ingin menghapus?\')">
+                        Delete
+                    </button>
                 </form>
             </div>
             ';
