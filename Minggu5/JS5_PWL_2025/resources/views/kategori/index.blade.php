@@ -9,10 +9,13 @@
  @section('content')
      <div class="container">
          <div class="card">
-             <div class="card-header">Manage Kategori</div>
+             <div class="card-header">Manage Kategori</div>            
              <div class="card-body" >
                  {{ $dataTable->table() }}
              </div>
+             <a href="{{ route('kategori.create') }}" class="btn btn-primary btn-sm mb-4">
+                <i class="fas fa-plus"></i> Add Kategori
+             </a>
          </div>
      </div>
  @endsection
