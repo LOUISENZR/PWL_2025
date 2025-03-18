@@ -24,4 +24,28 @@ class KategoriController extends Controller
         ]);
         return redirect('/kategori');
     }
+
+    public function edit($id)
+    {
+        $kategori = KategoriModel::where('kategori_id', $id)->firstOrFail();
+        return view('kategori.edit', compact('kategori'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'kategori_kode' => 'required|string|max:50',
+            'kategori_kode' => 'required|string|max:10',
+            'kategori_nama' => 'required|string|max:100',
+        ]);
+ 
+        $kategori = KategoriModel::where('kategori_id', $id)->firstOrFail();
+        $kategori->update([
+            'kategori_kode' => $request->kategori_kode,
+            'kategori_nama' => $request->kategori_nama,
+        ]);
+ 
+        return redirect('/kategori')->with('success', 'Kategori berhasil diperbarui!');
+        return redirect('/kategori');
+    }
 }

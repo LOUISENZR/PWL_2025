@@ -22,8 +22,23 @@
      public function dataTable(QueryBuilder $query): EloquentDataTable 
      { 
          return (new EloquentDataTable($query)) 
- /*             ->addColumn('action', 'kategori.action') */ 
-             ->setRowId('id'); 
+         ->addColumn('action', function ($row) {
+            $editUrl = url('/kategori/edit', $row->kategori_id);
+            $csrfToken = csrf_token();
+ 
+            return '
+            <div class="d-flex gap-2">
+                <a href="' . $editUrl . '" class="btn btn-warning btn-sm d-flex align-items-center px-3">
+                    Edit
+                </a>
+                    <input type="hidden" name="_method" value="POST">
+                    <input type="hidden" name="_token" value="' . $csrfToken . '">
+                </form>
+            </div>
+            ';
+        })
+        ->rawColumns(['action'])
+        ->setRowId('id');
      } 
   
      /** 
@@ -71,7 +86,12 @@
             Column::make('kategori_kode'), 
             Column::make('kategori_nama'), 
             Column::make('created_at'), 
-            Column::make('updated_at'), 
+            Column::make('updated_at'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(100)
+                ->addClass('text-center'), 
         ]; 
     } 
  
