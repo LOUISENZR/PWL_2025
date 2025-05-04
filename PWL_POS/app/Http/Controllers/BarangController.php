@@ -35,10 +35,10 @@ class BarangController extends Controller
         return DataTables::of($barang)
             ->addIndexColumn() 
             ->addColumn('harga_beli', function($barang) {
-                return 'Rp ' . number_format($barang->harga_beli, 0, ',', '.');
+                return $barang->harga_beli ? 'Rp ' . number_format($barang->harga_beli, 0, ',', '.') : '-';
             })
             ->addColumn('harga_jual', function($barang) {
-                return 'Rp ' . number_format($barang->harga_jual, 0, ',', '.');
+                return $barang->harga_jual ? 'Rp ' . number_format($barang->harga_jual, 0, ',', '.') : '-';
             })
             ->addColumn('aksi', function ($barang) {
                 $btn = '<button onclick="modalAction(\''.url('/barang/'.$barang->barang_id.'/show_ajax').'\')" 
@@ -55,6 +55,7 @@ class BarangController extends Controller
                     </button>';
                 return $btn;
             })
+            
             ->rawColumns(['aksi'])
             ->make(true); 
     } 
@@ -209,7 +210,7 @@ class BarangController extends Controller
     public function export_excel()
     {
         // ambil data barang yang akan di export
-        $barang = BarangModel::select('kategori_id','kode_barang','nama_barang','harga_beli','harga_jual')
+        $barang = BarangModel::select('kategori_id','barang_kode','nama_barang','harga_beli','harga_jual')
                 ->orderBy('kategori_id')
                 ->with('kategori')
                 ->get();
@@ -229,7 +230,7 @@ class BarangController extends Controller
         $baris = 2; // baris data dimulai dari baris ke 2
         foreach ($barang as $key => $value) {
             $sheet->setCellValue('A' . $baris, $no);
-            $sheet->setCellValue('B' . $baris, $value->kode_barang);
+            $sheet->setCellValue('B' . $baris, $value->barang_kode);
             $sheet->setCellValue('C' . $baris, $value->nama_barang);
             $sheet->setCellValue('D' . $baris, $value->harga_beli);
             $sheet->setCellValue('E' . $baris, $value->harga_jual);
@@ -262,9 +263,9 @@ class BarangController extends Controller
         public function export_pdf()
     {
          set_time_limit(300); // batas waktu export dalam detik
-         $barang = BarangModel::select('kategori_id', 'kode_barang', 'nama_barang', 'harga_beli', 'harga_jual')
+         $barang = BarangModel::select('kategori_id', 'barang_kode', 'nama_barang', 'harga_beli', 'harga_jual')
              ->orderBy('kategori_id')
-             ->orderBy('kode_barang')
+             ->orderBy('barang_kode')
              ->with('kategori')
              ->get();
  

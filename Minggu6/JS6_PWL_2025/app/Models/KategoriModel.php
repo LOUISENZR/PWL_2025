@@ -12,4 +12,6 @@ class KategoriModel extends Model
      protected $primaryKey = "kategori_id";      // Mendefinisikan primary key
  
      protected $fillable = ["kategori_kode", "kategori_nama"];
+
+    
 }

@@ -73,12 +73,12 @@
                      orderable: false,
                      searchable: false
                  }, {
-                     data: "kode_barang",
+                     data: "barang_kode",
                      className: "",
                      orderable: true,
                      searchable: true
                  }, {
-                     data: "nama_barang",
+                     data: "barang_nama",
                      className: "",
                      orderable: true,
                      searchable: true

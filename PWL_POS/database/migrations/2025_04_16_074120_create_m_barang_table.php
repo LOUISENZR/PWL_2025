@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('kategori_id')->index();
             $table->String('barang_kode', 10)->unique();
             $table->String('barang_nama', 100);
-            $table->integer('harga_beli');
-            $table->integer('harga_jual');
+            $table->decimal('harga_beli', 10, 2)->default(0);
+            $table->decimal('harga_jual', 10, 2)->default(0);
             $table->timestamps();
 
             //Mendefinisikan foreign key pada kolom kategori_id mengacu pada kolom kategori_id di tabel m_kategori

@@ -12,10 +12,20 @@ class BarangModel extends Model
      protected $table = 'm_barang';
      protected $primaryKey = 'barang_id';
  
-     protected $fillable = ['kategori_id', 'kode_barang', 'nama_barang', 'harga_beli', 'harga_jual'];
+    protected $fillable = [
+        'kategori_id', 
+        'barang_kode',  // Sesuaikan dengan nama kolom di database
+        'barang_nama',  // Sesuaikan dengan nama kolom di database
+        'harga_beli', 
+        'harga_jual'
+    ];
  
      public function kategori()
      {
          return $this->belongsTo(KategoriModel::class, 'kategori_id', 'kategori_id');
      }
+     protected $casts = [
+        'harga_beli' => 'float',
+        'harga_jual' => 'float',
+    ];
 }
