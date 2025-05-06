@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function(){
             Route::put('/{id}', [BarangController::class, 'update']);     // menyimpan perubahan data barang
             Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']); // menampilkan halaman form edit barang (ajax)
             Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']); // menyimpan perubahan data barang (ajax)
+            Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // mengkonfirmasi dapus data barang (ajax)
             Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // menghapus data barang (ajax)
             Route::delete('/{id}', [BarangController::class, 'destroy']); // menghapus data barang
         });

@@ -152,7 +152,7 @@ class UserController extends Controller
     // Ambil data user dalam bentuk json untuk datatables 
     public function list(Request $request) 
     { 
-        $users = UserModel::select('user_id', 'username', 'nama', 'level_id') 
+        $users = UserModel::select('id_user', 'username', 'nama', 'level_id') 
                     ->with('level'); 
     
         // Filter data user berdasarkan level_id
@@ -163,14 +163,14 @@ class UserController extends Controller
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addIndexColumn()  
             ->addColumn('aksi', function ($user) {  // menambahkan kolom aksi 
-                            $btn = '<button onclick="modalAction(\''.url('/user/' . $user->user_id . 
+                            $btn = '<button onclick="modalAction(\''.url('/user/' . $user->id_user . 
                 '/edit_ajax').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
-                            $btn .= '<button onclick="modalAction(\''.url('/user/' . $user->user_id . 
+                            $btn .= '<button onclick="modalAction(\''.url('/user/' . $user->id_user . 
                 '/delete_ajax').'\')"  class="btn btn-danger btn-sm">Hapus</button> '; 
                 
-                /*$btn  = '<a href="'.url('/user/' . $user->user_id).'" class="btn btn-info btn-sm">Detail</a> '; 
-                $btn .= '<a href="'.url('/user/' . $user->user_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> '; 
-                $btn .= '<form class="d-inline-block" method="POST" action="'. url('/user/'.$user->user_id).'">' . csrf_field() . method_field('DELETE') .  
+                /*$btn  = '<a href="'.url('/user/' . $user->id_user).'" class="btn btn-info btn-sm">Detail</a> '; 
+                $btn .= '<a href="'.url('/user/' . $user->id_user . '/edit').'" class="btn btn-warning btn-sm">Edit</a> '; 
+                $btn .= '<form class="d-inline-block" method="POST" action="'. url('/user/'.$user->id_user).'">' . csrf_field() . method_field('DELETE') .  
                         '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');">Hapus</button></form>'; */     
                 return $btn; 
             }) 
@@ -280,7 +280,7 @@ class UserController extends Controller
     {
         // Validasi input dari request
         $request->validate([
-            'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
+            'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',id_user',
             'nama'     => 'required|string|max:100',
             'password' => 'nullable|min:5',
             'level_id' => 'required|integer'
@@ -374,7 +374,7 @@ class UserController extends Controller
         if ($request->ajax() || $request->wantsJson()) { 
             $rules = [ 
                 'level_id' => 'required|integer', 
-                'username' => 'required|max:20|unique:m_user,username,'.$id.',user_id', 
+                'username' => 'required|max:20|unique:m_user,username,'.$id.',id_user', 
                 'nama'     => 'required|max:100', 
                 'password' => 'nullable|min:6|max:20' 
             ]; 

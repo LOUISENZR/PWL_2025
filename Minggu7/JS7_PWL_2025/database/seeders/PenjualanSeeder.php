@@ -44,7 +44,7 @@ class PenjualanSeeder extends Seeder
             $tanggal = Carbon::now()->subDays($i);
             
             $data[] = [
-                'user_id'            => $userId,
+                'id_user'            => $userId,
                 'pembeli'            => $namaPembeli[$i],
                 'penjualan_kode'     => $kode,
                 'penjualan_tanggal'  => $tanggal,
